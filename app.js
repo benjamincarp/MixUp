@@ -1,12 +1,21 @@
 var express = require('express');
 var path = require('path');
+var mongoose = require('mongoose');
 var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require('fs');
+
+//load all the files in the models dir
+fs.readdirSync(__dirname + '/models').forEach(function(filename){
+    if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
+});
 
 var routes = require('./routes/index');
 var ingredients = require('./routes/ingredients');
+
+var ingredientModel = require('./models/ingredients');
 
 var app = express();
 
@@ -21,6 +30,9 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+mongoose.connect('mongodb://127.0.0.1/MixUp')
+
 
 app.use('/', routes);
 app.use('/ingredients/',ingredients)
