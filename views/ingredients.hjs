@@ -6,6 +6,18 @@
   </head>
   <body>
     <h1>{{ title }}</h1>
-    <p>{{ingredients}}<p>
+    <h3>
+    {{#query.name}}
+    	Ingredients matching "{{query.name}}"
+    {{/query.name}}
+    {{^query.name}}
+    	All Ingredients:
+    {{/query.name}}
+    </h3>
+    <uL>
+    	{{#ingredients}}
+    		<li>{{name}}  [{{_id}}]</li>
+    	{{/ingredients}}
+    </uL>
   </body>
 </html>
