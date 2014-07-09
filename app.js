@@ -14,8 +14,8 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename){
 
 var routes = require('./routes/index');
 var ingredients = require('./routes/ingredients');
+var recipes = require('./routes/recipes');
 
-var ingredientModel = require('./models/ingredients');
 
 var app = express();
 
@@ -36,6 +36,7 @@ mongoose.connect('mongodb://127.0.0.1/MixUp')
 
 app.use('/', routes);
 app.use('/ingredients/',ingredients)
+app.use('/recipes/',recipes)
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

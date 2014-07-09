@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>{{ title }}</h1>
+    <h3>
+    {{#query.name}}
+    	Recipes matching "{{query.name}}"
+    {{/query.name}}
+    {{^query.name}}
+    	All recipes:
+    {{/query.name}}
+    </h3>
+    <uL>
+    	{{#recipes}}
+    		<li>{{name}}  [{{_id}}]</li>
+    	{{/recipes}}
+    </uL>
+  </body>
+</html>
