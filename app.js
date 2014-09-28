@@ -37,6 +37,11 @@ mongoose.connect('mongodb://127.0.0.1/MixUp')
 app.use('/', routes);
 app.use('/ingredients/',ingredients)
 app.use('/recipes/',recipes)
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+  console.log('Express server listening on port ' + server.address().port);
+});
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -68,6 +73,7 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
 
 
 module.exports = app;
