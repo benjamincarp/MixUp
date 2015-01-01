@@ -1,0 +1,16 @@
+{{>header}}
+
+<h1>Drinks List</h1>
+
+<ul>
+	{{#drinks}}
+		<li>
+			<a href="{{url}}"> {{name}} </a>
+		</li>
+	{{/drinks}}
+</ul>
+{{^drinks}}
+	Sorry, no drinks to display.
+{{/drinks}}
+
+{{>footer}}
