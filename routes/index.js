@@ -18,7 +18,7 @@ module.exports = function(db, passport){
 	//Set up the routes
 	  /* Handle Login GET */
 	router.get('/login', function(req, res){
-		res.render('login');
+		res.render('login', {hideLogin: true});
 	});
 	  /* Handle Login POST */
 	router.post('/login', passport.authenticate('login', {
@@ -29,7 +29,7 @@ module.exports = function(db, passport){
 	 
 	  /* GET Registration Page */
 	router.get('/register', function(req, res){	
-		res.render('register');
+		res.render('register', {hideLogin: true});
 	});
 	 
 	  /* Handle Registration POST */
@@ -51,7 +51,7 @@ module.exports = function(db, passport){
 	router.get('/',function(req,res,next){
 		// res.status(200).send("Default Route");
 
-		res.render('index');
+		res.render('hello');
 	});
 
 	return router;

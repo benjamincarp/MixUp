@@ -1,8 +1,0 @@
-{{>header}}
-	<form method="POST" action="login">
-			<input type="text" name="username">
-			<input type="password" name="password">
-			<input type="submit" value="Log In">
-			<!-- <a href=""> Forgot Password? </a> -->
-	</form>
-{{>footer}}

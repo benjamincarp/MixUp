@@ -1,11 +1,13 @@
 var path = require('path');
-var engines = require('consolidate');
+var exphbs  = require('express-handlebars');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy   = require('passport-local').Strategy;
 var expressSession = require('express-session');
 var bCrypt = require('bcrypt-nodejs');
 var serveStatic = require('serve-static');
+var flash = require('connect-flash');
+const favicon = require('serve-favicon');
 
 var express = require('express');
 var app = express();
@@ -18,6 +20,7 @@ app.use(expressSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 //setup the database connection
 var mongoose = require('mongoose');
@@ -127,46 +130,55 @@ var createHash = function(password){
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-//export the app so other files can require it
-module.exports = app;
-
-// view engine setup
-app.set('views', path.join(__dirname, 'public/templates'));
-app.engine('hjs', engines.hogan);
-app.set('view engine', 'hjs');
-
-//configure express
-app.set('title','MixUp');
-
 //middleware to populate base locals for the view templates
 app.use(function(req, res, next){
   res.locals={ 
-      user: req.user, 
-      partials: {
-        header: 'header',
-        footer: 'footer'
-      }
+      User: req.user
   };
 
   return next();
 })
 
-//serve up the static files in the public folder
-app.use(express.static(__dirname + '/public'));
+//export the app so other files can require it
+module.exports = app;
+
+// view engine setup
+app.enable('view cache');
+app.engine('.hbs', exphbs({
+	extname: '.hbs',
+	defaultLayout: 'main',
+	compilerOptions: {
+		preventIndent: true
+	},
+	helpers: {
+		toJSON(object) {
+			return JSON.stringify(object);
+		}
+  }
+}));
+app.set('view engine', '.hbs');
+
+//serve up static files from the public folder
+app.use(express.static('public'));
+
+// app.use(favicon(`${__dirname}/public/assets/favicon.png`));
+
+//configure express
+app.set('title','MixUp');
 
 //use the router for all valid requests
 var router = require('./routes/index')(db,passport);
 app.use('/',router);
 
+//404 handling
+app.use(function(req, res, next){
+  res.status(404).send('Sorry cant find that!');
+});
+
 //Generic error handling
 app.use(function(err, req, res, next){
   console.error(err.stack);
   res.status(500).send('Something broke!');
-});
-
-//404 handling
-app.use(function(req, res, next){
-  res.status(404).send('Sorry cant find that!');
 });
 
 //start the server

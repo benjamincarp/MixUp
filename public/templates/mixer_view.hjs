@@ -1,8 +1,0 @@
-{{>header}}
-
-<form method="POST">
-	<input type="text" name="name" value="{{ name }}">
-	<input type="submit" value="Save">
-</form>
-
-{{>footer}}
