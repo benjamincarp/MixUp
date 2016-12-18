@@ -132,9 +132,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //middleware to populate base locals for the view templates
 app.use(function(req, res, next){
-  res.locals={ 
-      User: req.user
-  };
+  res.locals.User = req.user;
+  res.locals.message = req.flash('message');
 
   return next();
 })

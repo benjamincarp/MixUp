@@ -1,4 +1,10 @@
 <form method="POST">
+    {{#if message}}
+        <div id="divMessage">
+            {{message}}
+        </div>
+    {{/if}}
+
     <div>
         <input type="text" placeholder="Username" name="username">
     </div>
