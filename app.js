@@ -48,7 +48,7 @@ passport.use('login', new LocalStrategy({
   },
   function(req, username, password, done) { 
     // check in mongo if a user with username exists or not
-    User.findOne({ 'username' :  username }, 
+    User.findOne({ 'username' :  username.toLowerCase() }, 
       function(err, user) {
         // In case of any error, return using the done method
         if (err)
@@ -100,7 +100,8 @@ passport.use('signup', new LocalStrategy({
           // set the user's local credentials
           newUser.username = username;
           newUser.password = createHash(password);
-          newUser._id = username;
+          newUser.first_name = req.body.first_name;
+          newUser.last_name = req.body.last_name;
  
           // save the user
           newUser.save(function(err) {
