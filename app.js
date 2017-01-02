@@ -27,7 +27,6 @@ var mongoose = require('mongoose');
 var db = mongoose.createConnection('localhost', 'mixup', 27017);
 
 var drink=require(__dirname + '/models/drink.js');
-var mixer=require(__dirname + '/models/mixer.js');
 var user=require(__dirname + '/models/user.js');
 
 var User = db.model('user');
