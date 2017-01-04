@@ -46,7 +46,6 @@ module.exports = function(db, passport){
 	});
 
 	router.use('/drinks',drinks);
-	router.use('/mixers',mixers);
 
 	router.get('/',function(req,res,next){
 		// res.status(200).send("Default Route");
