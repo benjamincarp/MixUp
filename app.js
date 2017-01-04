@@ -25,6 +25,7 @@ app.use(flash());
 //setup the database connection
 var mongoose = require('mongoose');
 var db = mongoose.createConnection('localhost', 'mixup', 27017);
+app.db = db;
 
 var drink=require(__dirname + '/models/drink.js');
 var user=require(__dirname + '/models/user.js');

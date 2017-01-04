@@ -4,7 +4,6 @@ var app = require('../app');
 module.exports = function(db, passport){
 
 	var drinks = require('./drinks')(db);
-	var mixers = require('./mixers')(db);
 
 	//configure the router
 	var router = express.Router({
