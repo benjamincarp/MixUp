@@ -4,6 +4,7 @@ var app = require('../app');
 module.exports = function(db, passport){
 
 	var drinks = require('./drinks')(db);
+	var drinksApi = require('./drinksApi')(db);
 
 	//configure the router
 	var router = express.Router({
@@ -44,12 +45,12 @@ module.exports = function(db, passport){
 	  res.redirect('/');
 	});
 
-	router.use('/drinks',drinks);
+	router.use('/api/drinks', drinksApi);
+
+	router.use('/drinks', drinks);
 
 	router.get('/',function(req,res,next){
-		// res.status(200).send("Default Route");
-
-		res.render('hello');
+		res.redirect('/drinks');
 	});
 
 	return router;

@@ -24,6 +24,7 @@ app.use(flash());
 
 //setup the database connection
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 var db = mongoose.createConnection('localhost', 'mixup', 27017);
 app.db = db;
 
