@@ -1,11 +1,13 @@
 var path = require('path');
-var engines = require('consolidate');
+var exphbs  = require('express-handlebars');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy   = require('passport-local').Strategy;
 var expressSession = require('express-session');
 var bCrypt = require('bcrypt-nodejs');
 var serveStatic = require('serve-static');
+var flash = require('connect-flash');
+const favicon = require('serve-favicon');
 
 var express = require('express');
 var app = express();
@@ -18,13 +20,15 @@ app.use(expressSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 //setup the database connection
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 var db = mongoose.createConnection('localhost', 'mixup', 27017);
+app.db = db;
 
 var drink=require(__dirname + '/models/drink.js');
-var mixer=require(__dirname + '/models/mixer.js');
 var user=require(__dirname + '/models/user.js');
 
 var User = db.model('user');
@@ -45,7 +49,7 @@ passport.use('login', new LocalStrategy({
   },
   function(req, username, password, done) { 
     // check in mongo if a user with username exists or not
-    User.findOne({ 'username' :  username }, 
+    User.findOne({ 'username' :  username.toLowerCase() }, 
       function(err, user) {
         // In case of any error, return using the done method
         if (err)
@@ -97,7 +101,8 @@ passport.use('signup', new LocalStrategy({
           // set the user's local credentials
           newUser.username = username;
           newUser.password = createHash(password);
-          newUser._id = username;
+          newUser.first_name = req.body.first_name;
+          newUser.last_name = req.body.last_name;
  
           // save the user
           newUser.save(function(err) {
@@ -127,46 +132,54 @@ var createHash = function(password){
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-//export the app so other files can require it
-module.exports = app;
-
-// view engine setup
-app.set('views', path.join(__dirname, 'public/templates'));
-app.engine('hjs', engines.hogan);
-app.set('view engine', 'hjs');
-
-//configure express
-app.set('title','MixUp');
-
 //middleware to populate base locals for the view templates
 app.use(function(req, res, next){
-  res.locals={ 
-      user: req.user, 
-      partials: {
-        header: 'header',
-        footer: 'footer'
-      }
-  };
+  res.locals.User = req.user;
+  res.locals.message = req.flash('message');
 
   return next();
 })
 
-//serve up the static files in the public folder
-app.use(express.static(__dirname + '/public'));
+//export the app so other files can require it
+module.exports = app;
+
+// view engine setup
+app.enable('view cache');
+app.engine('.hbs', exphbs({
+	extname: '.hbs',
+	defaultLayout: 'main',
+	compilerOptions: {
+		preventIndent: true
+	},
+	helpers: {
+		toJSON(object) {
+			return JSON.stringify(object);
+		}
+  }
+}));
+app.set('view engine', '.hbs');
+
+//serve up static files from the public folder
+app.use(express.static('public'));
+
+// app.use(favicon(`${__dirname}/public/assets/favicon.png`));
+
+//configure express
+app.set('title','MixUp');
 
 //use the router for all valid requests
 var router = require('./routes/index')(db,passport);
 app.use('/',router);
 
+//404 handling
+app.use(function(req, res, next){
+  res.status(404).send('Sorry cant find that!');
+});
+
 //Generic error handling
 app.use(function(err, req, res, next){
   console.error(err.stack);
   res.status(500).send('Something broke!');
-});
-
-//404 handling
-app.use(function(req, res, next){
-  res.status(404).send('Sorry cant find that!');
 });
 
 //start the server

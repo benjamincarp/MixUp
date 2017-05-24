@@ -1,32 +1,38 @@
 var express = require('express');
 var app = require('../app');
+var drinkController = require('../controllers/drinks');
 
 module.exports = function(db){
 	//configure the router
-	var drinksRoute = express.Router({
-		caseSensitive: true,        //  /foo != /FOO
-		strict: true				//  /foo != /foo/
+	var drinksRoute = express.Router();
+
+	drinksRoute.get('/create', function(req, res, next){
+		return res.render('drink_view', {isNew: true});
 	});
 
-	drinksRoute.get('/:drinkID',function(req, res, next){
-	   db.model('drink').findOne({_id: req.params.drinkID},function(err,drink){
-	  		if (err) return next(err);
+	
+	drinksRoute.get('/:drinkID', function(req, res, next){
+		drinkController.getOne(req.params.drinkID, function(err,drink){
+			if (err) return next(err);
 
-	  		return res.render('drink_view', drink);
-	  	});
+			return res.render('drink_view', drink);
+		});
 	});
 
-	drinksRoute.get('/',function(req, res, next){
-	  	db.model('drink').find({},function(err,drinks){
-	  		if (err) return next(err);
+	drinksRoute.get('/', function(req, res, next){
+		drinkController.getAll(function(err,drinks){
+			if (err) return next(err);
 
-	  		//use the toObject to get all the virtuals in there	
-	  		for(var i=0; i<drinks.length; i++){
-	  			drinks[i]=drinks[i].toObject({virtuals: true});
-	  		}
+			return res.render('drinks', {drinks: drinks});
+		});
+	});
 
-	  		return res.render('drinks_list', {drinks: drinks});
-	  	});
+	drinksRoute.post('/', function(req, res, next){
+		drinkController.create(req.body, function(err, drink){
+			if (err) return next(err);
+
+			return res.redirect(drink.url);
+		});
 	});
 
 	return drinksRoute;

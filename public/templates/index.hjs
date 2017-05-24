@@ -1,6 +1,0 @@
-{{>header}}
-	<ul>
-		<li><a href="/drinks"> Drink List </a></li>
-		<li><a href="/mixers"> Mixer List </a></li>
-	</ul>
-{{>footer}}

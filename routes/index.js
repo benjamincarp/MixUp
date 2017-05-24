@@ -4,7 +4,7 @@ var app = require('../app');
 module.exports = function(db, passport){
 
 	var drinks = require('./drinks')(db);
-	var mixers = require('./mixers')(db);
+	var drinksApi = require('./drinksApi')(db);
 
 	//configure the router
 	var router = express.Router({
@@ -18,7 +18,7 @@ module.exports = function(db, passport){
 	//Set up the routes
 	  /* Handle Login GET */
 	router.get('/login', function(req, res){
-		res.render('login');
+		res.render('login', {hideLogin: true});
 	});
 	  /* Handle Login POST */
 	router.post('/login', passport.authenticate('login', {
@@ -29,7 +29,7 @@ module.exports = function(db, passport){
 	 
 	  /* GET Registration Page */
 	router.get('/register', function(req, res){	
-		res.render('register');
+		res.render('register', {hideLogin: true});
 	});
 	 
 	  /* Handle Registration POST */
@@ -45,13 +45,12 @@ module.exports = function(db, passport){
 	  res.redirect('/');
 	});
 
-	router.use('/drinks',drinks);
-	router.use('/mixers',mixers);
+	router.use('/api/drinks', drinksApi);
+
+	router.use('/drinks', drinks);
 
 	router.get('/',function(req,res,next){
-		// res.status(200).send("Default Route");
-
-		res.render('index');
+		res.redirect('/drinks');
 	});
 
 	return router;
