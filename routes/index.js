@@ -49,9 +49,9 @@ module.exports = function(db, passport){
 
 	router.use('/drinks', drinks);
 
-	router.get('/',function(req,res,next){
-		res.redirect('/drinks');
-	});
+	// router.get('/',function(req,res,next){
+	// 	res.redirect('/drinks');
+	// });
 
 	return router;
 };

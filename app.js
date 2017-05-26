@@ -75,7 +75,7 @@ passport.use('login', new LocalStrategy({
 
 var isValidPassword = function(user, password){
   return bCrypt.compareSync(password, user.password);
-}
+};
 
 passport.use('signup', new LocalStrategy({
     passReqToCallback : true
@@ -126,7 +126,7 @@ passport.use('signup', new LocalStrategy({
 // Generates hash using bCrypt
 var createHash = function(password){
  return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
-}
+};
 
 //needed to populate req.body
 app.use(bodyParser.json());
@@ -138,7 +138,9 @@ app.use(function(req, res, next){
   res.locals.message = req.flash('message');
 
   return next();
-})
+});
+
+app.use(serveStatic('./client'));
 
 //export the app so other files can require it
 module.exports = app;
