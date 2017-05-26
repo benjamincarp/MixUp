@@ -1,0 +1,21 @@
+<H2>
+  {{#if isNew}}
+    New Drink
+  {{else}}
+    {{name}}
+  {{/if}}
+</H2>
+
+<form method="POST">
+  Name:<br>
+  <input type="text" name="name"><br>
+  Ingredients:<br>
+  <input type="text" name="ingredients[]"><br>
+  <input type="text" name="ingredients[]"><br>
+  <input type="text" name="ingredients[]"><br>
+  <input type="text" name="ingredients[]"><br>
+  <input type="text" name="ingredients[]"><br>
+  Instructions:<br>
+  <textarea name="instructions">
+  </textarea><br>
+</form>
