@@ -29,7 +29,7 @@ module.exports = function(db){
 			if (err) return next(err);
 
 			// return res.render('drinks_list', {drinks: drinks});
-			return res.json(drinks);
+			return res.json(drink);
 		});
 	});
 
