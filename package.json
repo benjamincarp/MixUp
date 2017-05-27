@@ -5,7 +5,9 @@
   "main": "app.js",
   "readme": "readme.rm",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "build-watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -31,5 +33,8 @@
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.3.2",
     "serve-static": "^1.11.1"
+  },
+  "devDependencies": {
+    "webpack": "^2.6.1"
   }
 }

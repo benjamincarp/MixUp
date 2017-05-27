@@ -1,5 +1,6 @@
 var express = require('express');
 var app = require('../app');
+var path = require('path');
 
 module.exports = function(db, passport){
 
@@ -49,9 +50,10 @@ module.exports = function(db, passport){
 
 	router.use('/drinks', drinks);
 
-	// router.get('/',function(req,res,next){
-	// 	res.redirect('/drinks');
-	// });
+	router.get('/',function(req,res,next){
+        const indexPath = path.resolve(__dirname, "../client/index.html");
+        res.sendFile(indexPath);
+	});
 
 	return router;
 };
