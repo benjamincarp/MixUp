@@ -140,7 +140,7 @@ app.use(function(req, res, next){
   return next();
 });
 
-app.use(serveStatic('./client'));
+app.use(serveStatic('./client/build'));
 
 //export the app so other files can require it
 module.exports = app;

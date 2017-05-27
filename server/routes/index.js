@@ -51,7 +51,7 @@ module.exports = function(db, passport){
 	router.use('/drinks', drinks);
 
 	router.get('/',function(req,res,next){
-        const indexPath = path.resolve(__dirname, "../client/index.html");
+        const indexPath = path.resolve(__dirname, "../../client/build/index.html");
         res.sendFile(indexPath);
 	});
 
