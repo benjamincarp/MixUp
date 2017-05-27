@@ -2,7 +2,7 @@
   "name": "MixUp",
   "version": "0.1.0",
   "description": "An online cocktail recipe database",
-  "main": "app.js",
+  "main": "server/app.js",
   "readme": "readme.rm",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
