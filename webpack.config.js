@@ -32,6 +32,8 @@ module.exports = {
     devtool: 'inline-source-map',
 
     devServer: {
+        historyApiFallback: true,
+        
         hot: true,
         // enable HMR on the server
 
