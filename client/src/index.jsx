@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './reducers/drinks';
+import rootReducer from './reducers/reducer';
 import thunk from 'redux-thunk';
 
 import { AppContainer } from 'react-hot-loader';
