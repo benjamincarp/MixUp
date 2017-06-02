@@ -6,7 +6,7 @@
   "readme": "readme.rm",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --watch",
     "build": "webpack --config webpack.prod.js --progress"
   },
   "repository": {

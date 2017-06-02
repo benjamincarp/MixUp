@@ -27,14 +27,3 @@ if (module.hot) {
         render(App)
     });
 }
-
-// import React from 'react';
-// import { render } from 'react-dom'
-// import Root from './react/root.jsx'
-//
-// let store = createStore(todoApp);
-//
-// render(
-//     <Root store={store} />,
-//     document.getElementById('root')
-// )

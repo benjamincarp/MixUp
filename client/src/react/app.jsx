@@ -1,10 +1,27 @@
 import React from 'react';
-import styles from '../style/app.css';
+import PropTypes from 'prop-types'
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router,
+    Route,
+    Link
+} from 'react-router-dom'
 
-const App = () => (
-<div className={styles.app}>
-<h2>Welcome</h2>
-</div>
+import DrinksList from './drinksList.jsx';
+import Drink from './drink.jsx';
+
+const Root = ({ store }) => (
+    <Provider store={store}>
+        <Router>
+            <div>
+                <Route path="/:drinkId" component={Drink} />
+                <Route exact path="/" component={DrinksList} />
+            </div>
+        </Router>
+    </Provider>
 );
 
-export default App;
+Root.propTypes = {
+    store: PropTypes.object.isRequired,
+};
+
+export default Root;
