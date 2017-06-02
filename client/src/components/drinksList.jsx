@@ -4,7 +4,7 @@ import DrinksListItem from './drinksListItem.jsx'
 
 const DrinksList = ({ drinks }) => {
     const list = drinks.map(drink => (
-       <DrinksListItem drink={drink}/>
+       <DrinksListItem drink={drink} key={drink.id}/>
     ));
     
     return (

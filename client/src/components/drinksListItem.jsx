@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const DrinksListItem = ({drink}) => (
-<li key="{drink.id}">
+<li>
     <Link to={`/${drink.id}`}>{drink.name}</Link>
 </li>
 );

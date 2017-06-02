@@ -14,7 +14,7 @@ const initialState ={
         },
         {
             id: 4,
-            name: "Down Easter"
+            name: "Daiquiri"
         }
     ]
 };
