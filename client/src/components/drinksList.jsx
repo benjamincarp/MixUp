@@ -2,22 +2,7 @@ import React from 'react';
 import styles from '../style/app.css';
 import DrinksListItem from './drinksListItem.jsx'
 
-const drinks = [
-    {
-        id: 1,
-        name: "Manhattan"
-    },
-    {
-        id: 2,
-        name: "Margarita"
-    },
-    {
-        id: 3,
-        name: "Down Easter"
-    }
-];
-
-const App = () => {
+const DrinksList = ({ drinks }) => {
     const list = drinks.map(drink => (
        <DrinksListItem drink={drink}/>
     ));
@@ -30,4 +15,4 @@ const App = () => {
     );
 }
 
-export default App;
+export default DrinksList;
