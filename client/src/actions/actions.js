@@ -1,33 +1,34 @@
+import fetch from 'isomorphic-fetch'
+
 export const REQUEST_DRINKS_SUCCESS = "REQUEST_DRINKS_SUCCESS";
 export const REQUEST_DRINKS = "REQUEST_DRINKS";
 
-export function loadDrinks() {
-    return (dispatch) => {
-        dispatch(fetchDrinks());
-        return { type: REQUEST_DRINKS };
+function requestDrinks() {
+    return {
+        type: REQUEST_DRINKS
     }
 }
 
-function fetchDrinks(){
-    //TODO: replace with a fetch call to the API
-    const drinks = [
-        {
-            id: 1,
-            name: "Manhattan"
-        },
-        {
-            id: 2,
-            name: "Margarita"
-        },
-        {
-            id: 3,
-            name: "Down Easter"
-        },
-        {
-            id: 4,
-            name: "Daiquiri"
-        }
-    ];
+function receiveDrinks(drinks) {
+    return {
+        type: REQUEST_DRINKS_SUCCESS,
+        drinks
+    }
+}
 
-    return { type: REQUEST_DRINKS_SUCCESS, drinks };
+export function fetchDrinks() {
+
+    return function (dispatch) {
+
+        dispatch(requestDrinks());
+
+        //TODO: make api to hit configurable
+        return fetch(`http://localhost:3000/api/drinks`)
+            .then(response => response.json())
+            .then(json => {
+                console.log(json);
+                return dispatch(receiveDrinks(json))
+            });
+            //TODO: add error handling
+    }
 }
