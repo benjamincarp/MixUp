@@ -23,10 +23,7 @@ function fetchDrinks() {
         //TODO: make api to hit configurable
         return fetch(`http://localhost:3000/api/drinks`)
             .then(response => response.json())
-            .then(json => {
-                console.log(json);
-                return dispatch(receiveDrinks(json))
-            });
+            .then(json => dispatch(receiveDrinks(json)));
             //TODO: add error handling
     }
 }

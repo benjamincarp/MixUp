@@ -11,8 +11,8 @@ class DrinksListContainer extends Component {
     }
 
     componentDidMount() {
-        const { dispatch } = this.props;
-        dispatch(fetchDrinksIfNeeded());
+        const { loadDrinks } = this.props;
+        loadDrinks();
     }
     
     render () {
@@ -23,7 +23,7 @@ class DrinksListContainer extends Component {
 
 DrinksListContainer.propTypes = {
     drinks: PropTypes.array.isRequired,
-    dispatch: PropTypes.func.isRequired
+    loadDrinks: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => (
@@ -34,7 +34,7 @@ const mapStateToProps = (state, ownProps) => (
 
 const mapDispatchToProps = (dispatch, ownProps) => (
     {
-        dispatch
+        loadDrinks: () => dispatch(fetchDrinksIfNeeded())
     }
 );
 
