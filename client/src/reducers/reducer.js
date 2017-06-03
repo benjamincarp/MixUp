@@ -3,7 +3,7 @@ import * as actions from '../actions/actions';
 const initialState ={
     drinks: [],
     needsLoad: true,
-    isLoading: false
+    isFetching: false
 };
 
 const drinksReducer = (state = initialState, action) => {
@@ -12,7 +12,7 @@ const drinksReducer = (state = initialState, action) => {
         case actions.REQUEST_DRINKS:
             return {
                 ...state,
-                isLoading: true
+                isFetching: true
             };
             
         case actions.REQUEST_DRINKS_SUCCESS:
@@ -20,7 +20,7 @@ const drinksReducer = (state = initialState, action) => {
                 ...state, 
                 drinks: state.drinks.concat(action.drinks),
                 needsLoad: false,
-                isLoading: false
+                isFetching: false
             };
             
         default:

@@ -16,10 +16,8 @@ function receiveDrinks(drinks) {
     }
 }
 
-export function fetchDrinks() {
-
+function fetchDrinks() {
     return function (dispatch) {
-
         dispatch(requestDrinks());
 
         //TODO: make api to hit configurable
@@ -30,5 +28,25 @@ export function fetchDrinks() {
                 return dispatch(receiveDrinks(json))
             });
             //TODO: add error handling
+    }
+}
+
+
+function shouldFetchDrinks(state) {
+    if (state.isFetching) {
+        return false
+    } else {
+        return state.needsLoad
+    }
+}
+
+export function fetchDrinksIfNeeded() {
+    return (dispatch, getState) => {
+        if (shouldFetchDrinks(getState())) {
+            return dispatch(fetchDrinks())
+        } else {
+            // Let the calling code know there's nothing to wait for.
+            return Promise.resolve()
+        }
     }
 }
