@@ -2,10 +2,12 @@
   "name": "MixUp",
   "version": "0.1.0",
   "description": "An online cocktail recipe database",
-  "main": "app.js",
+  "main": "server/app.js",
   "readme": "readme.rm",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --watch",
+    "build": "webpack --config webpack.prod.js --progress"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,7 @@
   },
   "homepage": "https://github.com/benjamincarp/MixUp",
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "backbone": "^1.1.2",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
@@ -26,10 +29,31 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.14.2",
     "express-uncapitalize": "^1.0.0",
+    "isomorphic-fetch": "^2.2.1",
     "mongoose": "^4.7.2",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "prop-types": "^15.5.10",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-hot-loader": "^3.0.0-beta.7",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.1",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
     "serve-favicon": "^2.3.2",
     "serve-static": "^1.11.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.3",
+    "redux-devtools": "^3.4.0",
+    "style-loader": "^0.18.1",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
   }
 }

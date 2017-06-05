@@ -5,6 +5,13 @@ var drinkController = require('../controllers/drinks');
 module.exports = function(db){
 	//configure the router
 	var drinksRoute = express.Router();
+	
+	drinksRoute.use('*', function(req, res, next) {
+       res.header("Access-Control-Allow-Origin", "*");
+       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+       next();
+     });
+
 
 	drinksRoute.get('/:drinkID', function(req, res, next){
 		drinkController.getOne(req.params.drinkID, function(err,drink){
@@ -16,7 +23,7 @@ module.exports = function(db){
 	});
 
 	drinksRoute.get('/', function(req, res, next){
-	  drinkController.getAll(function(err,drinks){
+        drinkController.getAll(function(err,drinks){
 			if (err) return next(err);
 
 			// return res.render('drinks_list', {drinks: drinks});

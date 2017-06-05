@@ -1,2 +1,3 @@
 node_modules
-public/js/lib
+client/build/index.js
+.idea

@@ -1,9 +1,9 @@
 var express = require('express');
 var app = require('../app');
+var path = require('path');
 
 module.exports = function(db, passport){
 
-	var drinks = require('./drinks')(db);
 	var drinksApi = require('./drinksApi')(db);
 
 	//configure the router
@@ -47,10 +47,9 @@ module.exports = function(db, passport){
 
 	router.use('/api/drinks', drinksApi);
 
-	router.use('/drinks', drinks);
-
-	router.get('/',function(req,res,next){
-		res.redirect('/drinks');
+	router.get('/*',function(req,res,next){
+        const indexPath = path.resolve(__dirname, "../../client/build/index.html");
+        res.sendFile(indexPath);
 	});
 
 	return router;

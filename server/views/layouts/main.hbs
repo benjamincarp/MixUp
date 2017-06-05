@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+</head>
+	<body>	
+		<h1> Welcome to MixUp </h1>
+
+		{{#if User}}
+			Hello, {{User.name}}
+		{{else}}
+			{{#unless hideLogin}}
+				<a href="/login"> Log In </a> or <a href="/register"> Sign Up </a>
+			{{/unless}}
+		{{/if}}
+
+		<div id="divMain">
+			{{{body}}}
+		</div>
+
+	</body>
+</html>
