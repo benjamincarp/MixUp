@@ -15,12 +15,12 @@ var controller = {
     return drinkModel.find({},function(err,drinks){
       if (err) return cb(err);
 
-      //use the toObject to get all the virtuals in there	
-      for(var i=0; i<drinks.length; i++){
-        drinks[i]=drinks[i].toObject({virtuals: true});
-      }
+      // //use the toObject to get all the virtuals in there	
+      // for(var i=0; i<drinks.length; i++){
+      //   drinks[i]=drinks[i].toObject({virtuals: true});
+      // }
 
-      return cb(null, drinks);
+      return cb(null, drinks.map( drink => drink.toJSON() ));
     });
   },
   
