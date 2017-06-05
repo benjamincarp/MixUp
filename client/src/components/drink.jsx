@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../style/app.css';
 import PropTypes from 'prop-types';
+import Header from './header.jsx';
 
 const Drink = ({ drink }) => {
     if (drink.notFound) {
@@ -13,6 +14,7 @@ const Drink = ({ drink }) => {
     
     return (
         <div className={styles.drink}>
+            <Header/>
             <h2>{drink.name}</h2>
         </div>
     );
