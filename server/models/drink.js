@@ -10,7 +10,16 @@ var drinkSchema = new Schema({
 });
 
 drinkSchema.virtual('url').get(function () {
-  return '/drinks/' + this._id;
+  return '/api/drinks/' + this._id;
 });
+
+drinkSchema.set('toJSON', {virtuals: true});
+
+drinkSchema.options.toJSON.transform = (doc, ret, options) => {
+    delete ret._id;
+    delete ret.__v;
+
+    return ret;
+};
 
 mongoose.model('drink', drinkSchema);
