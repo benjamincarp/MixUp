@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DrinksListComponent from '../components/drinksList.jsx';
 import PropTypes from 'prop-types';
-import { fetchDrinksIfNeeded } from '../actions/actions';
+import { fetchDrinksIfNeeded } from '../actions/drinks';
 
 class DrinksListContainer extends Component {
 
