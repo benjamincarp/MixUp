@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const DrinksListItem = ({drink}) => (
 <li>
-    <Link to={`/${drink.id}`}>{drink.name}</Link>
+    <Link to={`/drinks/${drink.id}`}>{drink.name}</Link>
 </li>
 );
 

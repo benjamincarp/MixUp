@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../style/app.css';
-import DrinksListItem from './drinksListItem.jsx'
+import DrinksListItem from './drinksListItem.jsx';
+import Header from './header.jsx';
 
 const DrinksList = ({ drinks }) => {
     const list = drinks.map(drink => (
@@ -9,10 +10,10 @@ const DrinksList = ({ drinks }) => {
     
     return (
         <div className={styles.app}>
-            <h2>Welcome!!!</h2>
+            <Header/>
             <ul>{list}</ul>
         </div>
     );
-}
+};
 
 export default DrinksList;

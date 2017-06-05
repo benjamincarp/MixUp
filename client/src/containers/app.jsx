@@ -5,12 +5,16 @@ import { BrowserRouter as Router, Route} from 'react-router-dom'
 
 import DrinksList from '../containers/drinksList.jsx';
 import Drink from '../containers/drink.jsx';
+import Login from '../components/login.jsx';
+import Register from '../components/register.jsx';
 
 const Root = ({ store }) => (
     <Provider store={store}>
         <Router>
             <div>
-                <Route path="/:drinkId" component={Drink} />
+                <Route path="/drinks/:drinkId" component={Drink} />
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
                 <Route exact path="/" component={DrinksList} />
             </div>
         </Router>
