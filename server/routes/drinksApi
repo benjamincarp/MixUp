@@ -23,7 +23,7 @@ module.exports = function(db){
 	});
 
 	drinksRoute.get('/', function(req, res, next){
-	  drinkController.getAll(function(err,drinks){
+        drinkController.getAll(function(err,drinks){
 			if (err) return next(err);
 
 			// return res.render('drinks_list', {drinks: drinks});

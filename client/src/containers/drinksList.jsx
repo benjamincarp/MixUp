@@ -12,6 +12,7 @@ class DrinksListContainer extends Component {
 
     componentDidMount() {
         const { loadDrinks } = this.props;
+        console.log(this.props);
         loadDrinks();
     }
     
@@ -28,7 +29,7 @@ DrinksListContainer.propTypes = {
 
 const mapStateToProps = (state, ownProps) => (
     {
-        drinks: state.drinks
+        drinks: state.drinks.drinks
     }
 );
 

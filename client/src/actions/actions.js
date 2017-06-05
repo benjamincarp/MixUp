@@ -19,7 +19,7 @@ function receiveDrinks(drinks) {
 function fetchDrinks() {
     return function (dispatch) {
         dispatch(requestDrinks());
-
+        
         //TODO: make api to hit configurable
         return fetch(`http://localhost:3000/api/drinks`)
             .then(response => response.json())
@@ -30,10 +30,10 @@ function fetchDrinks() {
 
 
 function shouldFetchDrinks(state) {
-    if (state.isFetching) {
+    if (state.drinks.isFetching) {
         return false
     } else {
-        return state.needsLoad
+        return state.drinks.needsLoad
     }
 }
 

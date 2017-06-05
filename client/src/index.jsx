@@ -1,8 +1,8 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './reducers/reducer';
+import { createStore, applyMiddleware, combineReducers} from 'redux';
+import reducers from './reducers';
 import thunk from 'redux-thunk';
 
 import { AppContainer } from 'react-hot-loader';
@@ -11,7 +11,7 @@ import { AppContainer } from 'react-hot-loader';
 import App from './containers/app.jsx';
 
 let store = createStore(
-    rootReducer,
+    combineReducers(reducers),
     applyMiddleware(thunk)
 );
 

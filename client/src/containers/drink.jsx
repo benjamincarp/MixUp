@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import DrinkComponent from '../components/drink.jsx';
 
 const mapStateToProps = (state, ownProps) => {
-    let drink = state.drinks.find((drinkObj) => (drinkObj.id.toString() === ownProps.match.params.drinkId));
+    let drink = state.drinks.drinks.find((drinkObj) => (drinkObj.id.toString() === ownProps.match.params.drinkId));
     
     //keep the proptypes happy. The component will handle a bad ID
     if (!drink) drink = { 
