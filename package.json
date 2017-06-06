@@ -29,6 +29,7 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.14.2",
     "express-uncapitalize": "^1.0.0",
+    "history": "^4.6.1",
     "isomorphic-fetch": "^2.2.1",
     "mongoose": "^4.7.2",
     "passport": "^0.3.2",
@@ -42,7 +43,8 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "serve-favicon": "^2.3.2",
-    "serve-static": "^1.11.1"
+    "serve-static": "^1.11.1",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
