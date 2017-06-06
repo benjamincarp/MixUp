@@ -2,9 +2,9 @@ import { connect } from 'react-redux'
 import LoginComponent from '../components/login.jsx';
 import * as userActions from '../actions/user';
 
-const mapStateToProps = (state, ownProps) => ({
-    
-});
+const mapStateToProps = (state, ownProps) => {
+    return {isLoggedIn: state.user.isLoggedIn}
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     submitAction: () => dispatch(userActions.login()),

@@ -12,7 +12,7 @@ const Register = () => {
     );
 };
 
-Register.propType = {
+Register.propTypes = {
 };
 
 export default Register;

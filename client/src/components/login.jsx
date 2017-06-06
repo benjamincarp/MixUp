@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../style/app.css';
 import PropTypes from 'prop-types';
 import Header from './header.jsx';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 class Login extends React.Component{
     onChange(e) {
@@ -15,9 +15,13 @@ class Login extends React.Component{
     }
     
     render() {
+        const {isLoggedIn} = this.props;
+        
+        if (isLoggedIn) return (<Redirect to="/" />);
+        
         return (
             <div>
-                <Header/>
+                <Header hideLoginLink={true} />
                 <form onSubmit={this.onSubmit.bind(this)}>
                     <div>
                         <input type="text" placeholder="Username" name="username" onChange={this.onChange.bind(this)} />
@@ -38,8 +42,9 @@ class Login extends React.Component{
     };
 }
 
-Login.propType = {
-    
+Login.propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired,
+    submitAction: PropTypes.func.isRequired
 };
 
 export default Login;
