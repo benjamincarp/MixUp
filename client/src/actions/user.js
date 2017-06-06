@@ -5,6 +5,9 @@ export const REQUEST_USER_SUCCESS = "REQUEST_USER_SUCCESS";
 export const LOGIN = "LOGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
+export const REGISTER = "REGISTER";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAILURE = "REGISTER_FAILURE";
 export const UPDATE_CREDENTIALS_FIELD = "UPDATE_CREDENTIALS_FIELD";
 
 function requestUser() {
@@ -60,8 +63,58 @@ export function updateCredentialsField(key, value) {
     };
 }
 
+function requestRegister() {
+    return {
+        type: REGISTER
+    };
+}
 
+function receiveRegister(user) {
+    return {
+        type: REGISTER_SUCCESS,
+        user
+    };
+}
 
+function fetchRegister() {
+    return function (dispatch, getState) {
+        dispatch(requestRegister());
+
+        let credentials = getState().user.credentials;
+        
+        //TODO: make api to hit configurable
+        return fetch(`http://localhost:3000/api/users`, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        })
+            .then(response => response.json())
+            .then(json => dispatch(receiveRegister(json)));
+        //TODO: add error handling
+    };
+}
+
+function shouldRegister(state) {
+    if (state.user.isFetching) {
+        return false
+    } else {
+        return !state.user.isLoggedIn
+    }
+}
+
+export function register() {
+    return (dispatch, getState) => {
+        if (shouldRegister(getState())) {
+            return dispatch(fetchRegister())
+        } else {
+            // Let the calling code know there's nothing to wait for.
+            return Promise.resolve()
+        }
+    };
+}
 
 function requestLogin() {
     return {
@@ -81,7 +134,7 @@ function fetchLogin() {
         dispatch(requestLogin());
 
         let credentials = getState().user.credentials;
-        
+
         //TODO: make api to hit configurable
         return fetch(`http://localhost:3000/api/session`, {
             method: "POST",

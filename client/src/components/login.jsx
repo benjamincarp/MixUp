@@ -44,7 +44,8 @@ class Login extends React.Component{
 
 Login.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
-    submitAction: PropTypes.func.isRequired
+    submitAction: PropTypes.func.isRequired,
+    fieldUpdateAction: PropTypes.func.isRequired
 };
 
 export default Login;
