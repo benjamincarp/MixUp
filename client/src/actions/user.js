@@ -1,19 +1,23 @@
-import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-fetch';
 
-export const REQUEST_USER_SUCCESS = "REQUEST_USER_SUCCESS";
 export const REQUEST_USER = "REQUEST_USER";
+export const REQUEST_USER_SUCCESS = "REQUEST_USER_SUCCESS";
+export const LOGIN = "LOGIN";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILURE = "LOGIN_FAILURE";
+export const UPDATE_CREDENTIALS_FIELD = "UPDATE_CREDENTIALS_FIELD";
 
 function requestUser() {
     return {
         type: REQUEST_USER
-    }
+    };
 }
 
 function receiveUser(user) {
     return {
         type: REQUEST_USER_SUCCESS,
         user
-    }
+    };
 }
 
 function fetchUser() {
@@ -31,9 +35,9 @@ function fetchUser() {
 
 function shouldFetchUser(state) {
     if (state.user.isFetching) {
-        return false
+        return false;
     } else {
-        return state.user.needsLoad
+        return state.user.needsLoad;
     }
 }
 
@@ -43,7 +47,71 @@ export function fetchUserIfNeeded() {
             return dispatch(fetchUser())
         } else {
             // Let the calling code know there's nothing to wait for.
+            return Promise.resolve();
+        }
+    };
+}
+
+export function updateCredentialsField(key, value) {
+    return {
+        type: UPDATE_CREDENTIALS_FIELD,
+        key,
+        value
+    };
+}
+
+
+
+
+function requestLogin() {
+    return {
+        type: LOGIN
+    };
+}
+
+function receiveLogin(user) {
+    return {
+        type: LOGIN_SUCCESS,
+        user
+    };
+}
+
+function fetchLogin() {
+    return function (dispatch, getState) {
+        dispatch(requestLogin());
+
+        let credentials = getState().user.credentials;
+        
+        //TODO: make api to hit configurable
+        return fetch(`http://localhost:3000/api/session`, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        })
+            .then(response => response.json())
+            .then(json => dispatch(receiveLogin(json)));
+        //TODO: add error handling
+    };
+}
+
+function shouldLogin(state) {
+    if (state.user.isFetching) {
+        return false
+    } else {
+        return !state.user.isLoggedIn
+    }
+}
+
+export function login() {
+    return (dispatch, getState) => {
+        if (shouldLogin(getState())) {
+            return dispatch(fetchLogin())
+        } else {
+            // Let the calling code know there's nothing to wait for.
             return Promise.resolve()
         }
-    }
+    };
 }
