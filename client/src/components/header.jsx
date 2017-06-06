@@ -3,7 +3,9 @@ import styles from '../style/app.css';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
-const Header = () => {
+const Header = ({hideLoginLink}) => {
+    const loginLink = hideLoginLink ? false : (<div><Link to='/login'>Log In</Link></div>);
+    const registerLink = hideLoginLink ? false : (<div><Link to='/register'>Register</Link></div>);
     
     return (
         <div>
@@ -12,21 +14,18 @@ const Header = () => {
                     <h2>MixUp</h2>
                 </Link>
             </div>
-            <div>
-                <Link to='/login'>
-                    Log in
-                </Link>
-            </div>
-            <div>
-                <Link to='/register'>
-                    Register
-                </Link>
-            </div>
+            {loginLink}
+            {registerLink}
         </div>
     );
 };
 
-Header.propType = {
+Header.defaultProps = {
+    hideLoginLink: false
+};
+
+Header.propTypes = {
+    hideLoginLink: PropTypes.bool.isRequired
 };
 
 export default Header;

@@ -20,7 +20,7 @@ const Drink = ({ drink }) => {
     );
 };
 
-Drink.propType = {
+Drink.propTypes = {
   drink: PropTypes.object.isRequired  
 };
 

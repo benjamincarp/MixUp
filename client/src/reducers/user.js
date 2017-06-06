@@ -21,8 +21,7 @@ const userReducer = (state = initialState, action) => {
 
         case actions.REQUEST_USER_SUCCESS:
         case actions.LOGIN_SUCCESS:
-            let isLoggedIn = _.isEmpty(action.user);
-            
+            let isLoggedIn = !_.isEmpty(action.user);
             return {
                 ...state,
                 user: action.user,
