@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route} from 'react-router-dom'
 import DrinksList from '../containers/drinksList.jsx';
 import Drink from '../containers/drink.jsx';
 import Login from '../containers/login.jsx';
-import Register from '../components/register.jsx';
+import Register from '../containers/register.jsx';
 
 const Root = ({ store }) => (
     <Provider store={store}>
