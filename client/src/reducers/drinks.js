@@ -1,13 +1,23 @@
 import * as actions from '../actions/drinks';
 
+const emptyDrink = {
+    name: '',
+    ingredients: [],
+    instructions: '',
+    id: '',
+    hasLoaded: false
+};
+
 const initialState ={
     drinks: [],
     needsLoad: true,
     isFetching: false,
-    current: {}
+    current: emptyDrink
 };
 
 const drinksReducer = (state = initialState, action) => {
+    let newState = {...state};
+    
     switch (action.type) {
         
         case actions.REQUEST_DRINKS:
@@ -25,29 +35,30 @@ const drinksReducer = (state = initialState, action) => {
             };
             
         case actions.SET_CURRENT_DRINK:
-            console.log('set drink in reducer');
             return {
                 ...state,
                 current: action.drink
             };
+
+        case actions.CLEAR_CURRENT_DRINK:
+            return {
+                ...state,
+                current: emptyDrink
+            };
         
         case actions.UPDATE_DRINK_FIELD:
-            let newState = {...state};
             newState.current[action.key] = action.value;
             return newState;
 
         case actions.ADD_INGREDIENT_LINE:
-            let newState = {...state};
             newState.current.ingredients.push('');
             return newState;
 
         case actions.REMOVE_INGREDIENT_LINE:
-            let newState = {...state};
             newState.current.ingredients.splice(action.index);
             return newState;
 
         case actions.UPDATE_INGREDIENT_LINE:
-            let newState = {...state};
             newState.current.ingredients[action.index] = action.value;
             return newState;
 
