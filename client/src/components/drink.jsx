@@ -5,16 +5,32 @@ import Header from './header.jsx';
 
 class Drink extends React.Component {
     
-    componentDidMount () {
+    componentDidMount() {
         this.props.didMount();
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         this.props.willUnmount();
     }
 
     onChange(e) {
-        this.props.fieldUpdateAction(e.target.name, e.target.value)
+        this.props.fieldUpdateAction(e.target.name, e.target.value);
+    }
+    
+    onIngredientLineChange(index, e) {
+        console.log(`update line ${index} to ${e.target.value}`);
+        this.props.updateIngredientLine(index, e.target.value);
+    }
+    
+    addIngredientLineClicked(e) {
+        e.preventDefault();
+        this.props.addIngredientLine();
+    }
+
+    removeIngredientLineClicked(index, e) {
+        e.preventDefault();
+        if (this.props.drink.ingredients.legth < 2) return;
+        this.props.removeIngredientLine(index);
     }
     
     onSubmit(e) {
@@ -44,7 +60,10 @@ class Drink extends React.Component {
         }
     
         const ingredientLines = drink.ingredients.map((line, index) => (
-            <li key={index}>{line}</li>
+            <li key={index}>
+                <input type="text" placeholder="Ingredient" name="ingredient[]" value={line} onChange={this.onIngredientLineChange.bind(this, index)}/>
+                <a href="#" onClick={this.removeIngredientLineClicked.bind(this, index)}>X</a>
+            </li>
         ));
         return (
             <div className={styles.drink}>
@@ -56,6 +75,7 @@ class Drink extends React.Component {
                     
                     <div>
                         <ul>{ingredientLines}</ul>
+                        <a href="#" onClick={this.addIngredientLineClicked.bind(this)}>Add Ingredient</a>
                     </div>
                     
                     <div>
