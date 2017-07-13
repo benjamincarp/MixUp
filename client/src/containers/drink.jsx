@@ -2,15 +2,17 @@ import { connect } from 'react-redux'
 import DrinkComponent from '../components/drink.jsx';
 import * as drinkActions from '../actions/drinks';
 
-const mapStateToProps = (state, ownProps) => {
-    let drink = drinkActions.loadDrink(state, ownProps.match.params.drinkId);
-    
-    return { drink };
-};
+const mapStateToProps = (state, ownProps) => (
+    {
+        drink: state.drinks.current
+    }  
+);
 
 const mapDispatchToProps = (dispatch, ownProps) => (
     {
-        submitAction: (drink) => dispatch(drinkActions.saveDrink(drink))
+        submitAction: (drink) => dispatch(drinkActions.saveDrink(drink)),
+        didMount: () => dispatch(drinkActions.loadDrink(ownProps.match.params.drinkId)),
+        willUnmount: () => dispatch(drinkActions.clearCurrentDrink())
     }
 );
 

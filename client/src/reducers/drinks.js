@@ -3,7 +3,8 @@ import * as actions from '../actions/drinks';
 const initialState ={
     drinks: [],
     needsLoad: true,
-    isFetching: false
+    isFetching: false,
+    current: {}
 };
 
 const drinksReducer = (state = initialState, action) => {
@@ -21,6 +22,13 @@ const drinksReducer = (state = initialState, action) => {
                 drinks: state.drinks.concat(action.drinks),
                 needsLoad: false,
                 isFetching: false
+            };
+            
+        case actions.SET_CURRENT_DRINK:
+            console.log('set drink in reducer');
+            return {
+                ...state,
+                current: action.drink
             };
             
         default:
