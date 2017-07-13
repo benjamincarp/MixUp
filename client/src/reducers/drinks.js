@@ -2,7 +2,7 @@ import * as actions from '../actions/drinks';
 
 const emptyDrink = {
     name: '',
-    ingredients: [],
+    ingredients: [''],
     instructions: '',
     id: '',
     hasLoaded: false
@@ -39,6 +39,15 @@ const drinksReducer = (state = initialState, action) => {
                 ...state,
                 current: {
                     ...action.drink, 
+                    hasLoaded: true
+                }
+            };
+
+        case actions.CREATE_DRINK:
+            return {
+                ...state,
+                current: {
+                    ...emptyDrink,
                     hasLoaded: true
                 }
             };
