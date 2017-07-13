@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch'
 export const REQUEST_DRINKS_SUCCESS = "REQUEST_DRINKS_SUCCESS";
 export const REQUEST_DRINKS = "REQUEST_DRINKS";
 export const SET_CURRENT_DRINK = "SET_CURRENT_DRINK";
+export const CREATE_DRINK = "CREATE_DRINK";
 export const CLEAR_CURRENT_DRINK = "CLEAR_CURRENT_DRINK";
 export const UPDATE_DRINK_FIELD = "UPDATE_CREDENTIALS_FIELD";
 export const ADD_INGREDIENT_LINE = "ADD_INGREDIENT_LINE";
@@ -38,10 +39,40 @@ export function removeIngredientLine(index) {
     };
 }
 
-export function saveDrink(drink) {
+export function saveDrink() {
     console.log('save drink');
     return (dispatch, getState) => {
-        console.dir(getState().drinks.current);
+        const drink = getState().drinks.current;
+        
+        let url, options;
+        let body = {...drink};
+        delete body.hasLoaded;
+        delete body.url;
+        delete body.create_date;
+        
+        if (drink.id === ''){
+            delete body.id;
+            
+            url = `http://localhost:3000/api/drinks`;
+            options = {
+                method: 'POST',
+                data: body
+            }
+        }
+        else{
+            url = `http://localhost:3000/api/drinks/${drink.id}`;
+            options = {
+                method: 'PUT',
+                data: body
+            }
+        }
+        console.dir(url);
+        console.dir(options);
+        
+        return fetch(url, options)
+            .then(response => response.json())
+            .then(json => console.dir(json));
+        //TODO: add error handling
     }
 }
 
@@ -56,21 +87,25 @@ function setCurrentDrink(drink) {
     return {
         type: SET_CURRENT_DRINK,
         drink
-    }
+    };
+}
+
+function createDrink() {
+    return {
+        type: CREATE_DRINK
+    };
 }
 
 export function loadDrink(id) {
     return (dispatch, getState) => {
         console.log(`load drink ${id}`);
+        let drink;
+        
         if (id === 'new') {
-            return {
-                name: '',
-                ingredients: [],
-                instructions: ''
-            };
+            return dispatch(createDrink());
         }
 
-        let drink = getState().drinks.drinks.find((drinkObj) => (drinkObj.id.toString() === id));
+        drink = getState().drinks.drinks.find((drinkObj) => (drinkObj.id.toString() === id));
 
         //keep the proptypes happy. The component will handle a bad ID
         if (!drink) drink = {
