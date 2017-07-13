@@ -30,7 +30,27 @@ const drinksReducer = (state = initialState, action) => {
                 ...state,
                 current: action.drink
             };
-            
+        
+        case actions.UPDATE_DRINK_FIELD:
+            let newState = {...state};
+            newState.current[action.key] = action.value;
+            return newState;
+
+        case actions.ADD_INGREDIENT_LINE:
+            let newState = {...state};
+            newState.current.ingredients.push('');
+            return newState;
+
+        case actions.REMOVE_INGREDIENT_LINE:
+            let newState = {...state};
+            newState.current.ingredients.splice(action.index);
+            return newState;
+
+        case actions.UPDATE_INGREDIENT_LINE:
+            let newState = {...state};
+            newState.current.ingredients[action.index] = action.value;
+            return newState;
+
         default:
             return state
     }
