@@ -37,7 +37,10 @@ const drinksReducer = (state = initialState, action) => {
         case actions.SET_CURRENT_DRINK:
             return {
                 ...state,
-                current: action.drink
+                current: {
+                    ...action.drink, 
+                    hasLoaded: true
+                }
             };
 
         case actions.CLEAR_CURRENT_DRINK:

@@ -40,24 +40,6 @@ class Drink extends React.Component {
     
     render() {
         const {drink} = this.props;
-        
-        if (!drink) {
-            return (
-                <div className={styles.drink}>
-                    <Header/>
-                    <div>loading...</div>
-                </div>
-            );
-        }
-    
-        if (drink.notFound) {
-            return (
-                <div className={styles.drink}>
-                    <Header/>
-                    <h2>No drink found with ID {drink.id}</h2>
-                </div>
-            );
-        }
     
         const ingredientLines = drink.ingredients.map((line, index) => (
             <li key={index}>
@@ -65,27 +47,32 @@ class Drink extends React.Component {
                 <a href="#" onClick={this.removeIngredientLineClicked.bind(this, index)}>X</a>
             </li>
         ));
+        
+        const content = drink.hasLoaded ? (
+            <form onSubmit={this.onSubmit.bind(this)}>
+                <div>
+                    <input type="text" placeholder="Name" name="name" value={drink.name} onChange={this.onChange.bind(this)}/>
+                </div>
+
+                <div>
+                    <ul>{ingredientLines}</ul>
+                    <a href="#" onClick={this.addIngredientLineClicked.bind(this)}>Add Ingredient</a>
+                </div>
+
+                <div>
+                        <textarea placeholder="Instructions" name="instructions"
+                                  rows="10" cols="80" value={drink.instructions} onChange={this.onChange.bind(this)}/>
+                </div>
+                <div>
+                    <input type="submit" value="Save"/>
+                </div>
+            </form>  
+        ) : (<div>loading...</div>);
+        
         return (
             <div className={styles.drink}>
                 <Header/>
-                <form onSubmit={this.onSubmit.bind(this)}>
-                    <div>
-                        <input type="text" placeholder="Name" name="name" value={drink.name} onChange={this.onChange.bind(this)}/>
-                    </div>
-                    
-                    <div>
-                        <ul>{ingredientLines}</ul>
-                        <a href="#" onClick={this.addIngredientLineClicked.bind(this)}>Add Ingredient</a>
-                    </div>
-                    
-                    <div>
-                        <textarea placeholder="Instructions" name="instructions" 
-                           rows="10" cols="80" value={drink.instructions} onChange={this.onChange.bind(this)}/>
-                    </div>
-                    <div>
-                        <input type="submit" value="Save"/>
-                    </div>
-                </form>
+                {content}
             </div>
         );
     }
