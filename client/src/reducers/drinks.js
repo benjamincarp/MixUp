@@ -55,7 +55,7 @@ const drinksReducer = (state = initialState, action) => {
             return newState;
 
         case actions.REMOVE_INGREDIENT_LINE:
-            newState.current.ingredients.splice(action.index);
+            newState.current.ingredients.splice(action.index, 1);
             return newState;
 
         case actions.UPDATE_INGREDIENT_LINE:
