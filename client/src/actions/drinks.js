@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch'
 export const REQUEST_DRINKS_SUCCESS = "REQUEST_DRINKS_SUCCESS";
 export const REQUEST_DRINKS = "REQUEST_DRINKS";
 export const SET_CURRENT_DRINK = "SET_CURRENT_DRINK";
+export const CLEAR_CURRENT_DRINK = "CLEAR_CURRENT_DRINK";
 export const UPDATE_DRINK_FIELD = "UPDATE_CREDENTIALS_FIELD";
 export const ADD_INGREDIENT_LINE = "ADD_INGREDIENT_LINE";
 export const REMOVE_INGREDIENT_LINE = "REMOVE_INGREDIENT_LINE";
@@ -16,7 +17,7 @@ export function updateDrinkField(key, value) {
     };
 }
 
-export function updateIngredientLinw(index, value) {
+export function updateIngredientLine(index, value) {
     return {
         type: UPDATE_INGREDIENT_LINE,
         index,
@@ -24,7 +25,7 @@ export function updateIngredientLinw(index, value) {
     };
 }
 
-export function addIngredientLinw() {
+export function addIngredientLine() {
     return {
         type: ADD_INGREDIENT_LINE
     };
@@ -39,12 +40,16 @@ export function removeIngredientLine(index) {
 
 export function saveDrink(drink) {
     console.log('save drink');
-    console.dir(drink);
+    return (dispatch, getState) => {
+        console.dir(getState().drinks.current);
+    }
 }
 
 export function clearCurrentDrink() {
     console.log('clear drink');
-    return setCurrentDrink({});
+    return {
+        type: CLEAR_CURRENT_DRINK
+    };
 }
 
 function setCurrentDrink(drink) {
