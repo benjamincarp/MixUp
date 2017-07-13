@@ -3,6 +3,39 @@ import fetch from 'isomorphic-fetch'
 export const REQUEST_DRINKS_SUCCESS = "REQUEST_DRINKS_SUCCESS";
 export const REQUEST_DRINKS = "REQUEST_DRINKS";
 export const SET_CURRENT_DRINK = "SET_CURRENT_DRINK";
+export const UPDATE_DRINK_FIELD = "UPDATE_CREDENTIALS_FIELD";
+export const ADD_INGREDIENT_LINE = "ADD_INGREDIENT_LINE";
+export const REMOVE_INGREDIENT_LINE = "REMOVE_INGREDIENT_LINE";
+export const UPDATE_INGREDIENT_LINE = "UPDATE_INGREDIENT_LINE";
+
+export function updateDrinkField(key, value) {
+    return {
+        type: UPDATE_DRINK_FIELD,
+        key,
+        value
+    };
+}
+
+export function updateIngredientLinw(index, value) {
+    return {
+        type: UPDATE_INGREDIENT_LINE,
+        index,
+        value
+    };
+}
+
+export function addIngredientLinw() {
+    return {
+        type: ADD_INGREDIENT_LINE
+    };
+}
+
+export function removeIngredientLine(index) {
+    return {
+        type: REMOVE_INGREDIENT_LINE,
+        index
+    };
+}
 
 export function saveDrink(drink) {
     console.log('save drink');
