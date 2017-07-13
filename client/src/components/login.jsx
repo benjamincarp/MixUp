@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Header from './header.jsx';
 import {Link, Redirect} from 'react-router-dom';
 
-class Login extends React.Component{
+class Login extends React.Component {
     onChange(e) {
         this.props.fieldUpdateAction(e.target.name, e.target.value)    
     }
