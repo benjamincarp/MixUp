@@ -6,12 +6,6 @@ var drinkController = require('../controllers/drinks');
 //configure the router
 var drinksRoute = express.Router();
 
-drinksRoute.use('*', function(req, res, next) {
-   res.header("Access-Control-Allow-Origin", "*");
-   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-   next();
- });
-
 drinksRoute.get('/:drinkID', function(req, res, next){
     drinkController.getOne(req.params.drinkID, function(err,drink){
         if (err) return next(err);
@@ -30,6 +24,15 @@ drinksRoute.get('/', function(req, res, next){
 
 drinksRoute.post('/', function(req, res, next){
     drinkController.create(req.body, function(err, drink){
+        if (err) return next(err);
+
+        return res.json(drink);
+    });
+});
+
+
+drinksRoute.put('/:drinkID', function(req, res, next){
+    drinkController.update(req.params.drinkID, req.body, function(err,drink){
         if (err) return next(err);
 
         return res.json(drink);

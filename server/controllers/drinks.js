@@ -40,7 +40,12 @@ var controller = {
     });
   },
 
-  update(id, data, cb) {},
+  update(id, data, cb) {
+      //get rid of empty lines
+      data.ingredients = data.ingredients.filter(line => !!line);
+      
+      return this.getOne(id, cb);
+  },
   remove(id, cb) {}
 };
 

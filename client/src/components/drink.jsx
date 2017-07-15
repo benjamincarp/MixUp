@@ -18,7 +18,6 @@ class Drink extends React.Component {
     }
     
     onIngredientLineChange(index, e) {
-        console.log(`update line ${index} to ${e.target.value}`);
         this.props.updateIngredientLine(index, e.target.value);
     }
     

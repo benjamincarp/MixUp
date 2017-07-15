@@ -7,12 +7,6 @@ var passport = require('passport');
 //configure the router
 var usersRoute = express.Router();
 
-usersRoute.use('*', (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-
 usersRoute.post('/', (req, res, next) =>{
     passport.authenticate('signup', (err, user, info) => {
         if (err) return next(err);

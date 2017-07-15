@@ -130,7 +130,7 @@ var createHash = function(password){
 
 //needed to populate req.body
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.urlencoded({extended: true}));
 
 //middleware to populate base locals for the view templates
 app.use(function(req, res, next){

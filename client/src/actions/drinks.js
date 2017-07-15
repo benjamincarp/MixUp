@@ -63,11 +63,13 @@ export function saveDrink() {
             url = `http://localhost:3000/api/drinks/${drink.id}`;
             options = {
                 method: 'PUT',
-                data: body
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
             }
         }
-        console.dir(url);
-        console.dir(options);
         
         return fetch(url, options)
             .then(response => response.json())

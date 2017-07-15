@@ -83,14 +83,18 @@ function fetchRegister() {
         let credentials = getState().user.credentials;
         
         //TODO: make api to hit configurable
-        return fetch(`http://localhost:3000/api/users`, {
+        
+        const url = `http://localhost:3000/api/users`;
+        const options = {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(credentials)
-        })
+        };
+        
+        return fetch(url, options)
             .then(response => response.json())
             .then(json => dispatch(receiveRegister(json)));
         //TODO: add error handling
