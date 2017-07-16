@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch'
 
 export const REQUEST_DRINKS_SUCCESS = "REQUEST_DRINKS_SUCCESS";
 export const REQUEST_DRINKS = "REQUEST_DRINKS";
+export const DRINKS_NEED_RELOAD = "DRINKS_NEED_RELOAD";
 export const SET_CURRENT_DRINK = "SET_CURRENT_DRINK";
 export const CREATE_DRINK = "CREATE_DRINK";
 export const CLEAR_CURRENT_DRINK = "CLEAR_CURRENT_DRINK";
@@ -40,7 +41,6 @@ export function removeIngredientLine(index) {
 }
 
 export function saveDrink() {
-    console.log('save drink');
     return (dispatch, getState) => {
         const drink = getState().drinks.current;
         
@@ -56,7 +56,11 @@ export function saveDrink() {
             url = `http://localhost:3000/api/drinks`;
             options = {
                 method: 'POST',
-                data: body
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
             }
         }
         else{
@@ -73,13 +77,18 @@ export function saveDrink() {
         
         return fetch(url, options)
             .then(response => response.json())
-            .then(json => console.dir(json));
+            .then(json => dispatch(setNeedsLoad()));
         //TODO: add error handling
     }
 }
 
+function setNeedsLoad() {
+    return {
+        type: DRINKS_NEED_RELOAD
+    };
+}
+
 export function clearCurrentDrink() {
-    console.log('clear drink');
     return {
         type: CLEAR_CURRENT_DRINK
     };
@@ -100,7 +109,6 @@ function createDrink() {
 
 export function loadDrink(id) {
     return (dispatch, getState) => {
-        console.log(`load drink ${id}`);
         let drink;
         
         if (id === 'new') {

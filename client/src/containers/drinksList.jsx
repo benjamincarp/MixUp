@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => (
 
 const mapDispatchToProps = (dispatch, ownProps) => (
     {
-        loadDrinks: () => dispatch(fetchDrinksIfNeeded())
+        fetchDrinksIfNeeded: () => dispatch(fetchDrinksIfNeeded())
     }
 );
 

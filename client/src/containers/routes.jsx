@@ -16,7 +16,6 @@ class RoutesContainer extends Component {
 
     componentDidMount() {
         const { loadDrinks } = this.props;
-        console.log(this.props);
         loadDrinks();
     }
     

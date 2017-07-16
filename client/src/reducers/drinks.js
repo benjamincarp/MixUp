@@ -29,9 +29,15 @@ const drinksReducer = (state = initialState, action) => {
         case actions.REQUEST_DRINKS_SUCCESS:
             return {
                 ...state, 
-                drinks: state.drinks.concat(action.drinks),
+                drinks: action.drinks,
                 needsLoad: false,
                 isFetching: false
+            };
+            
+        case actions.DRINKS_NEED_RELOAD:
+            return {
+                ...state,
+                needsLoad: true
             };
             
         case actions.SET_CURRENT_DRINK:
