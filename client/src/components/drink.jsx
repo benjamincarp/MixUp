@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../style/app.css';
 import PropTypes from 'prop-types';
-import Header from './header.jsx';
+import Header from '../containers/header.jsx';
 
 class Drink extends React.Component {
     

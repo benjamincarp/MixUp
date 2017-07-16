@@ -9,7 +9,7 @@ var sessionRoute = express.Router();
 
 sessionRoute.get('/', (req, res, next) => {
     //returns info about the currently logged in user
-    return res.json({ user: req.user ? req.user.toJSON() : {} });
+    return res.json({ user: req.user ? req.user.toJSON() : null });
 });
 
 sessionRoute.post('/', (req, res, next) => {

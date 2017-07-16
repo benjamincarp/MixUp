@@ -13,13 +13,13 @@ module.exports = (db, passport) => {
 	//redirect all URLs to lower case
 	app.use(require('express-uncapitalize')());
 
-    router.use('*', (req, res, next) => {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-
-        next();
-    });
+    // router.use('*', (req, res, next) => {
+    //     res.header("Access-Control-Allow-Origin", "http://localhost");
+    //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //     res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+    //
+    //     next();
+    // });
 
 	router.use('/api/drinks', drinksApi);
     router.use('/api/users', usersApi);

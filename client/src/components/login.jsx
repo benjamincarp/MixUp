@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../style/app.css';
 import PropTypes from 'prop-types';
-import Header from './header.jsx';
+import Header from '../containers/header.jsx';
 import {Link, Redirect} from 'react-router-dom';
 
 class Login extends React.Component {

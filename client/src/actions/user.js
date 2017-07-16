@@ -16,10 +16,10 @@ function requestUser() {
     };
 }
 
-function receiveUser(user) {
+function receiveUser(data) {
     return {
         type: REQUEST_USER_SUCCESS,
-        user
+        user: data.user
     };
 }
 
@@ -28,7 +28,7 @@ function fetchUser() {
         dispatch(requestUser());
         
         //TODO: make api to hit configurable
-        return fetch(`http://localhost:3000/api/session`)
+        return fetch(`http://localhost:3000/api/session`, {credentials: 'include'})
             .then(response => response.json())
             .then(json => dispatch(receiveUser(json)));
             //TODO: add error handling
@@ -69,10 +69,10 @@ function requestRegister() {
     };
 }
 
-function receiveRegister(user) {
+function receiveRegister(data) {
     return {
         type: REGISTER_SUCCESS,
-        user
+        user: data.user
     };
 }
 
@@ -126,10 +126,10 @@ function requestLogin() {
     };
 }
 
-function receiveLogin(user) {
+function receiveLogin(data) {
     return {
         type: LOGIN_SUCCESS,
-        user
+        user: data.user
     };
 }
 
