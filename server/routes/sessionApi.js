@@ -7,12 +7,12 @@ var passport = require('passport');
 //configure the router
 var sessionRoute = express.Router();
 
-sessionRoute.get('/', function(req, res, next){
+sessionRoute.get('/', (req, res, next) => {
     //returns info about the currently logged in user
     return res.json({ user: req.user ? req.user.toJSON() : {} });
 });
 
-sessionRoute.post('/', function(req, res, next){
+sessionRoute.post('/', (req, res, next) => {
     passport.authenticate('login', (err, user, info) => {
         if (err) return next(err);
         if (!user) return res.status(401).send();
@@ -23,7 +23,7 @@ sessionRoute.post('/', function(req, res, next){
     })(req, res, next);
 });
 
-sessionRoute.delete('/', function(req, res, next){
+sessionRoute.delete('/', (req, res, next) => {
     req.logout();
     return res.status(200).send();
 });

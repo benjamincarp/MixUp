@@ -5,7 +5,7 @@ var drinksApi = require('./drinksApi');
 var usersApi = require('./usersApi');
 var sessionApi = require('./sessionApi');
 
-module.exports = function(db, passport){
+module.exports = (db, passport) => {
     
 	//configure the router
 	var router = express.Router({});
@@ -13,7 +13,7 @@ module.exports = function(db, passport){
 	//redirect all URLs to lower case
 	app.use(require('express-uncapitalize')());
 
-    router.use('*', function(req, res, next) {
+    router.use('*', (req, res, next) => {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
@@ -25,7 +25,7 @@ module.exports = function(db, passport){
     router.use('/api/users', usersApi);
     router.use('/api/session', sessionApi);
 
-	router.get('/*',function(req,res,next){
+	router.get('/*',(req,res,next) => {
         const indexPath = path.resolve(__dirname, "../../client/build/index.html");
         res.sendFile(indexPath);
 	});

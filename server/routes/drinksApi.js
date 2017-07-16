@@ -6,24 +6,24 @@ var drinkController = require('../controllers/drinks');
 //configure the router
 var drinksRoute = express.Router();
 
-drinksRoute.get('/:drinkID', function(req, res, next){
-    drinkController.getOne(req.params.drinkID, function(err,drink){
+drinksRoute.get('/:drinkID', (req, res, next) => {
+    drinkController.getOne(req.params.drinkID, (err,drink) => {
         if (err) return next(err);
 
         return res.json(drink.toJSON());
     });
 });
 
-drinksRoute.get('/', function(req, res, next){
-    drinkController.getAll(function(err,drinks){
+drinksRoute.get('/', (req, res, next) => {
+    drinkController.getAll((err,drinks) => {
         if (err) return next(err);
 
         return res.json(drinks.map( drink => drink.toJSON() ));
     });
 });
 
-drinksRoute.post('/', function(req, res, next){
-    drinkController.create(req.body, function(err, drink){
+drinksRoute.post('/', (req, res, next) => {
+    drinkController.create(req.body, (err, drink) => {
         if (err) return next(err);
 
         return res.json(drink.toJSON());
@@ -31,8 +31,8 @@ drinksRoute.post('/', function(req, res, next){
 });
 
 
-drinksRoute.put('/:drinkID', function(req, res, next){
-    drinkController.update(req.params.drinkID, req.body, function(err,drink){
+drinksRoute.put('/:drinkID', (req, res, next) => {
+    drinkController.update(req.params.drinkID, req.body, (err,drink) => {
         if (err) return next(err);
 
         return res.json(drink.toJSON());

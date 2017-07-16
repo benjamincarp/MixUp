@@ -7,7 +7,7 @@ var passport = require('passport');
 //configure the router
 var usersRoute = express.Router();
 
-usersRoute.post('/', (req, res, next) =>{
+usersRoute.post('/', (req, res, next) => {
     passport.authenticate('signup', (err, user, info) => {
         if (err) return next(err);
         if (!user) return res.status(401).send();
