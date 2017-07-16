@@ -28,7 +28,7 @@ function fetchUser() {
         dispatch(requestUser());
         
         //TODO: make api to hit configurable
-        return fetch(`http://localhost:3000/api/user`)
+        return fetch(`http://localhost:3000/api/session`)
             .then(response => response.json())
             .then(json => dispatch(receiveUser(json)));
             //TODO: add error handling

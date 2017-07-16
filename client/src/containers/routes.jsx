@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
 
-import { fetchDrinksIfNeeded } from '../actions/drinks';
+import {fetchDrinksIfNeeded} from '../actions/drinks';
+import {fetchUserIfNeeded} from '../actions/user';
 import DrinksList from '../containers/drinksList.jsx';
 import Drink from '../containers/drink.jsx';
 import Login from '../containers/login.jsx';
@@ -15,8 +16,9 @@ class RoutesContainer extends Component {
     }
 
     componentDidMount() {
-        const { loadDrinks } = this.props;
+        const { loadDrinks, loadUser } = this.props;
         loadDrinks();
+        loadUser();
     }
     
     render () {
@@ -39,7 +41,8 @@ const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch, ownProps) => (
     {
-        loadDrinks: () => dispatch(fetchDrinksIfNeeded())
+        loadDrinks: () => dispatch(fetchDrinksIfNeeded()),
+        loadUser: () => dispatch(fetchUserIfNeeded())
     }
 );
 
