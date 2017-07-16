@@ -3,10 +3,12 @@ import styles from '../style/app.css';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
-const Header = ({hideLoginLink}) => {
-    const loginLink = hideLoginLink ? false : (<div><Link to='/login'>Log In</Link></div>);
-    const registerLink = hideLoginLink ? false : (<div><Link to='/register'>Register</Link></div>);
-    
+const Header = ({hideLoginLink, isLoggedIn, user}) => {
+    const loginLink = (hideLoginLink || isLoggedIn) ? false : (<div><Link to='/login'>Log In</Link></div>);
+    const registerLink = (hideLoginLink || isLoggedIn) ? false : (<div><Link to='/register'>Register</Link></div>);
+    const logoutLink = (hideLoginLink || !isLoggedIn) ? false : (<div><a href="#" >Log Out</a></div>);
+    const userName = (hideLoginLink || !user) ? false : (<div>Welcome, {user.first_name}</div>);
+
     return (
         <div>
             <div>
@@ -16,6 +18,8 @@ const Header = ({hideLoginLink}) => {
             </div>
             {loginLink}
             {registerLink}
+            {userName}
+            {logoutLink}
         </div>
     );
 };

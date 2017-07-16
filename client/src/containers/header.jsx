@@ -18,12 +18,17 @@ class HeaderContainer extends Component {
     render () {
         console.log(`hideLoginLink=${this.props.hideLoginLink}`);
         return (
-            <HeaderComponent hideLoginLink={this.props.hideLoginLink}/>
+            <HeaderComponent hideLoginLink={this.props.hideLoginLink} isLoggedIn={this.props.isLoggedIn} user={this.props.user}/>
         );
     }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state, ownProps) => (
+    {
+        isLoggedIn: state.user.isLoggedIn,
+        user: state.user.user
+    }
+);
 
 const mapDispatchToProps = (dispatch, ownProps) => (
     {
