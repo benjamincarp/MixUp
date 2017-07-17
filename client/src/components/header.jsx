@@ -3,6 +3,8 @@ import styles from '../style/app.css';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
+
+
 const Header = ({hideLoginLink, isLoggedIn, user}) => {
     const loginLink = (hideLoginLink || isLoggedIn) ? false : (<div><Link to='/login'>Log In</Link></div>);
     const registerLink = (hideLoginLink || isLoggedIn) ? false : (<div><Link to='/register'>Register</Link></div>);
@@ -19,7 +21,6 @@ const Header = ({hideLoginLink, isLoggedIn, user}) => {
             {loginLink}
             {registerLink}
             {userName}
-            {logoutLink}
         </div>
     );
 };
