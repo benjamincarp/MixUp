@@ -18,7 +18,13 @@ var controller = {
     });
   },
   
-  create: (data, cb) => {
+  create: (data, user_id, cb) => {
+    if (!user_id) {
+        return cb(new Error('User is required to create drink.'));
+    }
+    
+    data.created_by = user_id;
+    
     var drink = new drinkModel(data);
     drink.save((err, newDrink) => {
       if (err) return cb(err);
@@ -27,9 +33,17 @@ var controller = {
     });
   },
 
-  update: (id, data, cb) => {
-      return this.getOne(id, (err, drink) => {
+  update: (id, data, user_id, cb) => {
+      if(!user_id) {
+          return cb(new Error('User is required to create drink.'));
+      }
+      
+      return controller.getOne(id, (err, drink) => {
           if (err) return cb(err);
+          
+          if(user_id.toString() !== drink.created_by.toString()) {
+              return cb(new Error('Only drink creator can edit it.'));
+          }
 
           Object.assign(drink, data);
           drink.save((err, newDrink) => {

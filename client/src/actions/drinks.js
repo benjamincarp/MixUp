@@ -60,7 +60,8 @@ export function saveDrink() {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(body)
+                body: JSON.stringify(body),
+                credentials: 'include'
             }
         }
         else{
@@ -71,7 +72,8 @@ export function saveDrink() {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(body)
+                body: JSON.stringify(body),
+                credentials: 'include'
             }
         }
         
@@ -146,7 +148,7 @@ function fetchDrinks() {
         dispatch(requestDrinks());
         
         //TODO: make api to hit configurable
-        return fetch(`http://localhost:3000/api/drinks`)
+        return fetch(`http://localhost:3000/api/drinks`, {credentials: 'include'})
             .then(response => response.json())
             .then(json => dispatch(receiveDrinks(json)));
             //TODO: add error handling

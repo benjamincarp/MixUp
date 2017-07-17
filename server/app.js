@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy   = require('passport-local').Strategy;
 var expressSession = require('express-session');
+var MongoStore = require('connect-mongo')(expressSession);
 var bCrypt = require('bcrypt-nodejs');
 var serveStatic = require('serve-static');
 var flash = require('connect-flash');
@@ -12,21 +13,25 @@ const favicon = require('serve-favicon');
 var express = require('express');
 var app = express();
 
-// Configuring Passport
-app.use(expressSession({
-	secret: 'SsshhhItsASecret',
-	resave: false,
-	saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-
 //setup the database connection
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var db = mongoose.createConnection('localhost', 'mixup', 27017);
 app.db = db;
+
+// Configuring Passport
+app.use(expressSession({
+	secret: 'SsshhhItsASecret',
+	resave: false,
+	saveUninitialized: false,
+    store: new MongoStore({
+        mongooseConnection: db
+    })
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 var drink=require(__dirname + '/models/drink.js');
 var user=require(__dirname + '/models/user.js');
@@ -34,7 +39,7 @@ var user=require(__dirname + '/models/user.js');
 var User = db.model('user');
 
 passport.serializeUser(function(user, done) {
-  done(null, user._id);
+  done(null, user._id.toString());
 });
  
 passport.deserializeUser(function(id, done) {
