@@ -23,7 +23,10 @@ drinksRoute.get('/', (req, res, next) => {
 });
 
 drinksRoute.post('/', (req, res, next) => {
-    drinkController.create(req.body, (err, drink) => {
+    if (!req.user) {
+        return res.sendStatus(401);
+    }
+    drinkController.create(req.body, req.user._id, (err, drink) => {
         if (err) return next(err);
 
         return res.json(drink.toJSON());
@@ -32,7 +35,11 @@ drinksRoute.post('/', (req, res, next) => {
 
 
 drinksRoute.put('/:drinkID', (req, res, next) => {
-    drinkController.update(req.params.drinkID, req.body, (err,drink) => {
+    if (!req.user) {
+        return res.sendStatus(401);
+    }
+    
+    drinkController.update(req.params.drinkID, req.body, req.user._id, (err,drink) => {
         if (err) return next(err);
 
         return res.json(drink.toJSON());
